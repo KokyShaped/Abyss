@@ -10,7 +10,7 @@
 
 IoData* initIoData(void){
 	IoData* data = malloc(sizeof(IoData));
-	data->basePath = getBasePath;
+	data->basePath = getBasePath();
 	data->baseResourcePath = getResourcePath(data->basePath);
 	return data;
 }
@@ -43,7 +43,7 @@ char* getResourcePath(const char* basePath){
 	strcpy(baseResPath, basePath);
 
 // THIS IS SUPAAA WRONGGGGGG
-	strcpy(strstr(baseResPath, "src"), "res/");
+	strcpy(strstr(baseResPath, "src/"), "res/");
 	return baseResPath;
 	
 }
