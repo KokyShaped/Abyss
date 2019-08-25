@@ -1,15 +1,16 @@
+
+#include <assert.h>
 #include <stdio.h>
-#include "../include/random.h"
+#include "random.h"
+#include "resources.h"
+#include <SDL2/SDL.h>
 
 
 
 int main(){
-	randomize();
-	printf("this is a test, hello world!\n");
+	IoData* data = initIoData();
 
-	int number;
-	for (int i = 0; i < 10; i++){
-		number = randInt(0, 100);
-		printf("this random number is %d\n", number);
-	}
+	printf("The path is: %s\n", data->basePath);
+	printf("The path is: %s\n", data->baseResourcePath);
+	freeIoData(data);
 }

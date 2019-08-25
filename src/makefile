@@ -1,8 +1,8 @@
 
-FILES = main.c random.c 
+FILES = main.c random.c resources.c
 
 exec: $(FILES)
-	gcc main.c random.c -I ../include/ -lm -o exec
+	gcc $(FILES) -I ../include/ -lm -o exec -lSDL2
 
 run: 
 	./exec
