@@ -1,11 +1,11 @@
 
-FILES = main.c random.c resources.c
+FILES = main.c random.c resources.c error.c
 
 exec: $(FILES)
-	gcc $(FILES) -I ../include/ -lm -o exec -lSDL2 -Wall
+	gcc $(FILES) -I ../include/ -lm -o exec -lSDL2 -lSDL2_image -Wall
 
 debug:
-	gcc $(FILES) -I ../include/ -lm -o exec -lSDL2 -g
+	gcc $(FILES) -I ../include/ -lm -o exec -lSDL2 -lSDL2_image -g
 run: 
 	./exec
 clean:

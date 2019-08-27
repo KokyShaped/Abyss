@@ -3,10 +3,9 @@
 #include <string.h>
 #include "resources.h"
 #include <stdlib.h>
-
+#include "error.h"
 #include "SDL2/SDL.h"
 #include <SDL2/SDL_image.h>
-#include <SDL2/SDL_filesystem.h>
 
 IoData* initIoData(void){
 	IoData* data = malloc(sizeof(IoData));
@@ -32,7 +31,7 @@ char* getBasePath(void){
 		printf("ERROR WHILE GETTING PATH\n");
 		assert(0);
 	}
-	return basePath;
+	return value;
 }
 
 char* getResourcePath(const char* basePath){
@@ -47,3 +46,24 @@ char* getResourcePath(const char* basePath){
 	return baseResPath;
 	
 }
+
+SDL_Texture* loadTexture(const char* path, SDL_Renderer* ren){
+	SDL_Texture* texture = NULL;
+	
+	SDL_Surface* loadedImage = IMG_Load(path);
+
+	if (loadedImage){
+		texture = SDL_CreateTextureFromSurface(ren, loadedImage);
+		SDL_FreeSurface(loadedImage);
+
+		if (!texture){
+			logSDLError("TEX FROM SURFACE");
+		}
+
+	} else {
+		logSDLError("LOAD IMAGE");
+	}
+	return texture;
+	
+}
+
