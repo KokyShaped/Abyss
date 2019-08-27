@@ -54,14 +54,28 @@ int main(){
 		return 1;
 	}
 
-	for (int i = 0; i < 3; i++){
+
+
+	SDL_Rect sourceRect;
+	sourceRect.x = sourceRect.y = 0;
+	sourceRect.w = sourceRect.h = 16;
+
+	SDL_Rect destinationRect;
+	destinationRect.w = destinationRect.h = 32;
+
+	for (int i = 0; i < 20; i++){
+		
+		destinationRect.x = destinationRect.y = 32*i;
+		
+
+
 		SDL_RenderClear(ren);
 
-		SDL_RenderCopy(ren, tex, NULL, NULL);
+		SDL_RenderCopy(ren, tex, &sourceRect, &destinationRect);
 
 		SDL_RenderPresent(ren);
 
-		SDL_Delay(1000);
+		SDL_Delay(500);
 	}
 
 
