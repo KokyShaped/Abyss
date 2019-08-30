@@ -7,6 +7,8 @@
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 720
 
+#define TILE_SIZE 32
+#define ATLAS_RES 16
 
 #define min(x, y) (x < y? x:y)
 #define max(x, y) (x < y? y:x)
@@ -20,6 +22,13 @@ typedef int8_t i8;
 typedef int16_t i16;
 typedef int32_t i32;
 typedef int64_t i64;
+
+typedef struct{
+	i32 x;
+	i32 y;
+}Vector2;
+
+typedef Vector2 Position;
 
 
 #endif

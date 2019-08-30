@@ -6,6 +6,7 @@
 #include "error.h"
 #include "SDL2/SDL.h"
 #include <SDL2/SDL_image.h>
+#include "graphics.h"
 
 IoData* initIoData(void){
 	IoData* data = malloc(sizeof(IoData));

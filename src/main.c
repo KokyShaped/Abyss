@@ -6,7 +6,7 @@
 #include "resources.h"
 #include <SDL2/SDL.h>
 #include "error.h"
-
+#include "graphics.h"
 
 
 
@@ -55,24 +55,18 @@ int main(){
 	}
 
 
+	Vector2 first = {0, 0};
+	Sprite* player = createSpriteFromAtlas(first, tex);
 
-	SDL_Rect sourceRect;
-	sourceRect.x = sourceRect.y = 0;
-	sourceRect.w = sourceRect.h = 16;
 
-	SDL_Rect destinationRect;
-	destinationRect.w = destinationRect.h = 32;
-
+	Vector2 pos;
 	for (int i = 0; i < 20; i++){
 		
-		destinationRect.x = destinationRect.y = 32*i;
-		
-
-
+		pos.x = pos.y = i;
 		SDL_RenderClear(ren);
 
-		SDL_RenderCopy(ren, tex, &sourceRect, &destinationRect);
-
+		renderSpriteAt(pos, ren, player);
+		
 		SDL_RenderPresent(ren);
 
 		SDL_Delay(500);
