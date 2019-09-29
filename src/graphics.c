@@ -1,4 +1,6 @@
 #include "graphics.h"
+#include "resources.h"
+
 
 static u32 zoomFactor = 1;
 
@@ -28,3 +30,4 @@ void renderSpriteAt(Vector2 pos, SDL_Renderer* ren, Sprite* spr){
 
 	SDL_RenderCopy(ren, spr->sourceTex, &(spr->clip), &destRect);
 }
+

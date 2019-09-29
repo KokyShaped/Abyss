@@ -7,6 +7,7 @@
 #include <SDL2/SDL.h>
 #include "error.h"
 #include "graphics.h"
+#include "entity.h"
 
 
 
@@ -35,37 +36,23 @@ int main(){
 		return 1;
 	}
 
+
+
+
 	//resources and stufff
-	IoData* data = initIoData();
-	printf("The path is: %s\n", data->basePath);
-	printf("The path is: %s\n", data->baseResourcePath);
+	IoData* data = initIoData(ren);
+
+	Player player = createPlayer(data); 
 
 
-	char* imagePath = malloc(strlen(data->baseResourcePath) + 30);
-	strcpy(imagePath, data->baseResourcePath);
-	strcat(imagePath, "Player0.png");
-	printf("%s\n", imagePath);
+	//game loop
 
-	SDL_Texture* tex = loadTexture(imagePath, ren);
-	if (tex == NULL){
-		SDL_DestroyRenderer(ren);
-		SDL_DestroyWindow(win);
-		SDL_Quit();
-		return 1;
-	}
-
-
-	Vector2 first = {0, 0};
-	Sprite* player = createSpriteFromAtlas(first, tex);
-
-
-	Vector2 pos;
 	for (int i = 0; i < 20; i++){
 		
-		pos.x = pos.y = i;
+		player.pos.x = player.pos.y = i;
 		SDL_RenderClear(ren);
 
-		renderSpriteAt(pos, ren, player);
+		renderSpriteAt(player.pos, ren, player.spr);
 		
 		SDL_RenderPresent(ren);
 
@@ -81,7 +68,6 @@ int main(){
 
 	//CLEAN UP
 	freeIoData(data);
-	SDL_DestroyTexture(tex);
 	SDL_DestroyRenderer(ren);
 	SDL_DestroyWindow(win);
 	SDL_Quit();

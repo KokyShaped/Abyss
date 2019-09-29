@@ -8,16 +8,31 @@
 #include <SDL2/SDL_image.h>
 #include "graphics.h"
 
-IoData* initIoData(void){
+IoData* initIoData(SDL_Renderer* ren){
 	IoData* data = malloc(sizeof(IoData));
+
 	data->basePath = getBasePath();
 	data->baseResourcePath = getResourcePath(data->basePath);
+
+	data->tileAtlasPath = getAtlasPath(data->baseResourcePath, "Floor.png");
+	data->playerAtlasPath = getAtlasPath(data->baseResourcePath, "Player.png");
+
+	data->tileAtlas = loadTexture(data->tileAtlasPath, ren);
+	data->playerAtlas = loadTexture(data->playerAtlasPath, ren);
+
 	return data;
 }
 
 void freeIoData(IoData* data){
 	SDL_free(data->basePath);
 	SDL_free(data->baseResourcePath);
+
+	SDL_free(data->playerAtlasPath);
+	SDL_free(data->tileAtlasPath);
+
+	SDL_DestroyTexture(data->playerAtlas);
+	SDL_DestroyTexture(data->tileAtlas);
+
 	SDL_free(data);
 }
 
@@ -48,6 +63,19 @@ char* getResourcePath(const char* basePath){
 	
 }
 
+char* getAtlasPath(const char* baseResourcePath, const char* resource){
+	int lenght = strlen(baseResourcePath) + strlen(resource);
+	
+	char* atlasPath = malloc(lenght);
+
+	strcpy(atlasPath, baseResourcePath);
+	strcat(atlasPath, resource);
+	printf("The Atlas path is: %s\n", atlasPath);
+	return atlasPath;
+}
+
+
+
 SDL_Texture* loadTexture(const char* path, SDL_Renderer* ren){
 	SDL_Texture* texture = NULL;
 	
@@ -67,4 +95,5 @@ SDL_Texture* loadTexture(const char* path, SDL_Renderer* ren){
 	return texture;
 	
 }
+
 
