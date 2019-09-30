@@ -7,6 +7,7 @@
 #include "graphics.h"
 #include "resources.h"
 
+#define MAX_TILES_SIDE 16
 
 typedef enum {
 	Empty=0,
@@ -15,7 +16,7 @@ typedef enum {
 	Door,
 	Entry,
 	Exit,
-	count
+	tileCount
 }TileTypes;
 
 
@@ -27,8 +28,10 @@ typedef struct{
 
 
 typedef struct{
-	Tile* tiles;
-	Sprite* tileSprites;
+	Tile tiles[MAX_TILES_SIDE][MAX_TILES_SIDE];
+	Sprite** tileSprites;
+
+	//rooms btw
 	//to be filled
 }Level;
 
@@ -36,7 +39,7 @@ typedef struct{
 	Vector2 pos;
 	u32 hp;
 	bool solid;
-	Sprite* spr;
+	Sprite* sprite;
 }Player;
 
 typedef struct{
@@ -47,5 +50,7 @@ typedef struct{
 
 
 Player createPlayer(IoData* data);
-
+EntityManager createEntityManager(IoData* data);
+Level* createLevel(IoData* data);
+void initTiles(Tile* tiles);
 #endif

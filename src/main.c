@@ -42,17 +42,18 @@ int main(){
 	//resources and stufff
 	IoData* data = initIoData(ren);
 
-	Player player = createPlayer(data); 
-
+	EntityManager entityManager = createEntityManager(data);
 
 	//game loop
-
+	Vector2 randompos = {5,5};
 	for (int i = 0; i < 20; i++){
 		
-		player.pos.x = player.pos.y = i;
+		entityManager.player.pos.x = entityManager.player.pos.y = i;
 		SDL_RenderClear(ren);
 
-		renderSpriteAt(player.pos, ren, player.spr);
+		renderSpriteAt(randompos, ren, entityManager.level->tileSprites[1]);
+
+		
 		
 		SDL_RenderPresent(ren);
 
