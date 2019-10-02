@@ -38,7 +38,7 @@ int main(){
 
 
 
-
+	printf("%d\n", sizeof(Level));
 	//resources and stufff
 	IoData* data = initIoData(ren);
 
@@ -51,7 +51,7 @@ int main(){
 		entityManager.player.pos.x = entityManager.player.pos.y = i;
 		SDL_RenderClear(ren);
 
-		renderSpriteAt(randompos, ren, entityManager.level->tileSprites[1]);
+		//renderSpriteAt(randompos, ren, entityManager.level->tileSprites[1]);
 
 		
 		

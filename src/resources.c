@@ -7,6 +7,7 @@
 #include "SDL2/SDL.h"
 #include <SDL2/SDL_image.h>
 #include "graphics.h"
+#include "entity.h"
 
 IoData* initIoData(SDL_Renderer* ren){
 	IoData* data = malloc(sizeof(IoData));

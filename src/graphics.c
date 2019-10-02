@@ -1,5 +1,4 @@
 #include "graphics.h"
-#include "resources.h"
 
 
 static u32 zoomFactor = 1;
@@ -31,13 +30,19 @@ void renderSpriteAt(Vector2 pos, SDL_Renderer* ren, Sprite* spr){
 	SDL_RenderCopy(ren, spr->sourceTex, &(spr->clip), &destRect);
 }
 
+
+
+/*
 void renderTiles(Level* level, SDL_Renderer* ren){
 	Vector2 pos;
+	TileTypes type;
 	for (int i = 0; i < MAX_TILES_SIDE; i++){
 		for (int j = 0; j < MAX_TILES_SIDE; j++){
 			pos.x = i; 
 			pos.y = j;
-			renderSpriteAt(pos, ren, level->tileSprites[tile[i][j].type]);
+			type = level->tiles[i][j].type;
+			renderSpriteAt(pos, ren, level->tileSprites[type]);
 		}
 	}
 }
+*/
