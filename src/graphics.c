@@ -55,11 +55,11 @@ void createTileAtlasSprites(IoData* data, Sprite** sprites){
 	sprites[Empty] = createSpriteFromAtlas(pos, data->tileAtlas);
 
 	pos.x = 1;
-	pos.y = 4;
+	pos.y = 19;
 	sprites[Floor] = createSpriteFromAtlas(pos, data->tileAtlas);
 
 	pos.x = 5;
-	pos.y = 3;
+	pos.y = 9;
 	sprites[Wall] = createSpriteFromAtlas(pos, data->tileAtlas);
 }
 

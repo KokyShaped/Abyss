@@ -44,7 +44,11 @@ void initTiles(Room* room){
 
 	for (int i = 0; i < MAX_SIDE; i++){
 		for (int j = 0; j < MAX_SIDE; j++){
-			room->tiles[i][j].type = Floor;
+			if (i == 0 || i == MAX_SIDE-1 ||
+				j == 0 || j == MAX_SIDE-1)
+				room->tiles[i][j].type = Wall;
+			else
+				room->tiles[i][j].type = Floor;
 		}
 	}
 }
