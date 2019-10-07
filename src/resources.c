@@ -96,5 +96,3 @@ SDL_Texture* loadTexture(const char* path, SDL_Renderer* ren){
 	return texture;
 	
 }
-
-

@@ -3,13 +3,11 @@
 
 #include <SDL2/SDL.h>
 #include "definitions.h"
+#include "resources.h"
 #include "entity.h"
+#include <assert.h>
 
 
-typedef struct {
-	SDL_Rect clip;
-	SDL_Texture* sourceTex;
-}Sprite;
 //a sprite is a clip rect of the image at the position in pixels of the atlas
 //and a pointer to the atlas
 
@@ -19,6 +17,8 @@ Sprite* createSpriteFromAtlas(Vector2 pos, SDL_Texture* atlas);
 
 void renderSpriteAt(Vector2 pos, SDL_Renderer* ren, Sprite* spr);
 
-void renderTiles(Level* level, SDL_Renderer* ren);
+void drawCurrentRoom(EntityManager* manager, SDL_Renderer* ren);
+
+void createTileAtlasSprites(IoData* data, Sprite** sprites);
 
 #endif

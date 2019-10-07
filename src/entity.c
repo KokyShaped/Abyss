@@ -13,33 +13,59 @@ Player createPlayer(IoData* data){
 }
 
 
-EntityManager createEntityManager(IoData* data){
-	EntityManager manager;
-	manager.player = createPlayer(data);
 
-	manager.roomcreateRoom
-
+EntityManager* createEntityManager(void){
+	EntityManager* manager = malloc(sizeof(EntityManager));
 	return manager;
+}
+
+void initEntityManager(EntityManager* manager, IoData* data){
+	manager->player = createPlayer(data);
+	manager->firstRoom = NULL;
+	manager->currentRoom = NULL;
+	manager->roomCount = 0;
+	createTileAtlasSprites(data, manager->tileSprites);
+
 }
 
 
 Room* createRoom(void){
-	Room* room = malloc(sizeof(Room));
-	room->height = randInt(3, MAX_TILES_SIDE);
-	room->width = randInt(3, MAX_TILES_SIDE);
-	room->tiles = NULL;
+	Room* rtn = malloc(sizeof(Room));
+	return rtn;	
+}
 
-	sb_add(room->tiles, room->height * room->width);
+void initRoom(Room* room){
+	room->width = room->height = 16;
+	room->nextRoom = NULL;
+	initTiles(room);
+}
 
-	int k = 0
-	Vector2 pos;
-	for(int i = 0; i < room.height; i++){
-		for(int j = 0; j < room.width; j++){
-			pos.x = i;
-			pos.y = j;
+void initTiles(Room* room){
 
-			room->tiles[k].pos = pos;
-			k++;
+	for (int i = 0; i < MAX_SIDE; i++){
+		for (int j = 0; j < MAX_SIDE; j++){
+			room->tiles[i][j].type = Floor;
 		}
 	}
+}
+
+void addRoom(EntityManager* manager, Room* room){
+	if (manager->firstRoom == NULL){
+		manager->firstRoom = room;
+		manager->currentRoom = room;
+
+	}else{
+		Room* aux = manager->firstRoom;
+
+		while (aux){
+			if (aux->nextRoom == NULL){
+				aux->nextRoom = room;
+				aux = NULL;
+
+			}else{
+				aux->nextRoom = aux->nextRoom->nextRoom;
+			}
+		}
+	}
+	manager->roomCount += 1;
 }

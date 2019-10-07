@@ -30,19 +30,36 @@ void renderSpriteAt(Vector2 pos, SDL_Renderer* ren, Sprite* spr){
 	SDL_RenderCopy(ren, spr->sourceTex, &(spr->clip), &destRect);
 }
 
-
-
-/*
-void renderTiles(Level* level, SDL_Renderer* ren){
-	Vector2 pos;
+void drawCurrentRoom(EntityManager* manager, SDL_Renderer* ren){
 	TileTypes type;
-	for (int i = 0; i < MAX_TILES_SIDE; i++){
-		for (int j = 0; j < MAX_TILES_SIDE; j++){
-			pos.x = i; 
+	Room* room = manager->currentRoom;
+	Vector2 pos = {0,0};
+
+	for (int i = 0; i < MAX_SIDE; i++){
+		for (int j = 0; j < MAX_SIDE; j++){
+			type = (room->tiles[i][j]).type;
+			assert(type < tileCount);
+			pos.x = i;
 			pos.y = j;
-			type = level->tiles[i][j].type;
-			renderSpriteAt(pos, ren, level->tileSprites[type]);
+			renderSpriteAt(pos, ren, manager->tileSprites[type]);
 		}
 	}
 }
-*/
+
+
+
+void createTileAtlasSprites(IoData* data, Sprite** sprites){
+	Vector2 pos = {0,0};
+	pos.x = 5;
+	pos.y = 0;
+	sprites[Empty] = createSpriteFromAtlas(pos, data->tileAtlas);
+
+	pos.x = 1;
+	pos.y = 4;
+	sprites[Floor] = createSpriteFromAtlas(pos, data->tileAtlas);
+
+	pos.x = 5;
+	pos.y = 3;
+	sprites[Wall] = createSpriteFromAtlas(pos, data->tileAtlas);
+}
+

@@ -4,10 +4,10 @@
 #include "definitions.h"
 #include <stdbool.h>
 #include "stretchy_buffer.h"
-#include "graphics.h"
 #include "resources.h"
+#include "random.h"
 
-#define MAX_TILES_SIDE 16
+#define MAX_SIDE 16
 
 typedef enum {
 	Empty=0,
@@ -26,14 +26,15 @@ typedef struct{
 	u8 type;
 }Tile;
 
+typedef struct Room{
+	Tile tiles[MAX_SIDE][MAX_SIDE];
 
-typedef struct{
-	Tile tiles[MAX_TILES_SIDE][MAX_TILES_SIDE];
-	Sprite** tileSprites;
+	u8 width;
+	u8 height;
 
-	//rooms btw
-	//to be filled
-}Level;
+	struct Room* nextRoom;
+}Room;
+
 
 typedef struct{
 	Vector2 pos;
@@ -42,15 +43,33 @@ typedef struct{
 	Sprite* sprite;
 }Player;
 
+
+
 typedef struct{
 	Player player;
-	Level* level;
+
+	Sprite* tileSprites[tileCount];
+
+	Room* firstRoom;
+	Room* currentRoom;
+	u32 roomCount;
+
 }EntityManager;
 
-
+#include "graphics.h"
 
 Player createPlayer(IoData* data);
-EntityManager createEntityManager(IoData* data);
-Level* createLevel(IoData* data);
-void initTiles(Tile* tiles);
+
+EntityManager* createEntityManager(void);
+
+void initEntityManager(EntityManager* manager, IoData* data);
+
+Room* createRoom(void);
+
+void initRoom(Room* room);
+
+void initTiles(Room* room);
+
+void addRoom(EntityManager* manager, Room* room);
+
 #endif

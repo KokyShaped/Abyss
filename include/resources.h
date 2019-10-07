@@ -13,6 +13,11 @@ typedef struct {
 
 }IoData;
 
+typedef struct {
+	SDL_Rect clip;
+	SDL_Texture* sourceTex;
+}Sprite;
+
 char* getBasePath(void);
 char* getResourcePath(const char* subDir);
 

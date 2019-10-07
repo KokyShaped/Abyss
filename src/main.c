@@ -37,26 +37,25 @@ int main(){
 	}
 
 
-
-	printf("%d\n", sizeof(Level));
 	//resources and stufff
 	IoData* data = initIoData(ren);
 
-	EntityManager entityManager = createEntityManager(data);
+	EntityManager* entityManager = createEntityManager();
+	initEntityManager(entityManager, data);
+
+	Room* aux = createRoom();
+	initRoom(aux);
+	addRoom(entityManager, aux);
 
 	//game loop
-	Vector2 randompos = {5,5};
-	for (int i = 0; i < 20; i++){
+	for (int i = 0; i < 10; i++){
 		
-		entityManager.player.pos.x = entityManager.player.pos.y = i;
 		SDL_RenderClear(ren);
 
-		//renderSpriteAt(randompos, ren, entityManager.level->tileSprites[1]);
-
-		
+		drawCurrentRoom(entityManager, ren);
 		
 		SDL_RenderPresent(ren);
-
+		printf("Pass %d done\n", i);
 		SDL_Delay(500);
 	}
 
@@ -69,7 +68,9 @@ int main(){
 
 	//CLEAN UP
 	freeIoData(data);
+	printf("doneeee\n");
 	SDL_DestroyRenderer(ren);
 	SDL_DestroyWindow(win);
 	SDL_Quit();
+	printf("doneeee\n");
 }
