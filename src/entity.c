@@ -35,17 +35,18 @@ Room* createRoom(void){
 }
 
 void initRoom(Room* room){
-	room->width = room->height = 16;
+	room->width = randInt(MIN_SIDE, MAX_SIDE);
+	room->height = randInt(MIN_SIDE, MAX_SIDE);
 	room->nextRoom = NULL;
 	initTiles(room);
 }
 
 void initTiles(Room* room){
 
-	for (int i = 0; i < MAX_SIDE; i++){
-		for (int j = 0; j < MAX_SIDE; j++){
-			if (i == 0 || i == MAX_SIDE-1 ||
-				j == 0 || j == MAX_SIDE-1)
+	for (int i = 0; i < room->width; i++){
+		for (int j = 0; j < room->height; j++){
+			if (i == 0 || i == room->width-1 ||
+				j == 0 || j == room->height-1)
 				room->tiles[i][j].type = Wall;
 			else
 				room->tiles[i][j].type = Floor;
@@ -67,9 +68,22 @@ void addRoom(EntityManager* manager, Room* room){
 				aux = NULL;
 
 			}else{
-				aux->nextRoom = aux->nextRoom->nextRoom;
+				aux = aux->nextRoom;
 			}
 		}
 	}
 	manager->roomCount += 1;
+}
+
+void advanceRoom(EntityManager* manager){
+	if (manager->roomCount == 0){
+		printf("tried to advance room when there were none\n");
+		assert(0);
+	}
+
+	if (manager->currentRoom->nextRoom == NULL){
+		manager->currentRoom = manager->firstRoom;
+	}
+
+	manager->currentRoom = manager->currentRoom->nextRoom;
 }

@@ -14,6 +14,7 @@
 
 int main(){
 
+	randomize();
 //SDL init....
 
 	if (SDL_Init(SDL_INIT_VIDEO) != 0){
@@ -48,15 +49,59 @@ int main(){
 	addRoom(entityManager, aux);
 
 	//game loop
-	for (int i = 0; i < 10; i++){
+
+	bool quit = false;
+	SDL_Event e;
+	while (!quit){
 		
+		//INPUT
+		while (SDL_PollEvent(&e)){
+			if (e.type == SDL_QUIT){
+				quit = true;
+			}
+
+			if (e.type == SDL_KEYDOWN){
+				switch (e.key.keysym.sym)
+				{
+					case SDLK_ESCAPE:
+						quit = true;
+						break;
+
+					case SDLK_w:
+						aux = createRoom();
+						initRoom(aux);
+						addRoom(entityManager, aux);
+						break;
+
+					case SDLK_e:
+						advanceRoom(entityManager);
+						break;
+
+					case SDLK_r:
+						printf("Number of rooms: %d\n", entityManager->roomCount);
+						break;
+
+					default:
+						printf("not handled key\n");
+						break;
+				}
+			}
+
+			if (e.type == SDL_MOUSEBUTTONDOWN){
+				printf("You just pressed a mouse button\n");
+			}
+
+		}
+
+
+
+		//RENDER
 		SDL_RenderClear(ren);
 
 		drawCurrentRoom(entityManager, ren);
 		
 		SDL_RenderPresent(ren);
-		printf("Pass %d done\n", i);
-		SDL_Delay(500);
+		SDL_Delay(16);
 	}
 
 

@@ -35,8 +35,8 @@ void drawCurrentRoom(EntityManager* manager, SDL_Renderer* ren){
 	Room* room = manager->currentRoom;
 	Vector2 pos = {0,0};
 
-	for (int i = 0; i < MAX_SIDE; i++){
-		for (int j = 0; j < MAX_SIDE; j++){
+	for (int i = 0; i < manager->currentRoom->width; i++){
+		for (int j = 0; j < manager->currentRoom->height; j++){
 			type = (room->tiles[i][j]).type;
 			assert(type < tileCount);
 			pos.x = i;

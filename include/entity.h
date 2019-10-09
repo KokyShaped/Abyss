@@ -7,6 +7,7 @@
 #include "resources.h"
 #include "random.h"
 
+#define MIN_SIDE 4
 #define MAX_SIDE 16
 
 typedef enum {
@@ -72,4 +73,5 @@ void initTiles(Room* room);
 
 void addRoom(EntityManager* manager, Room* room);
 
+void advanceRoom(EntityManager* manager);
 #endif
