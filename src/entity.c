@@ -2,7 +2,7 @@
 
 
 Player createPlayer(IoData* data){
-	Vector2 cero = {0,0};
+	Vector2 cero = {1,1};
 
 	Player player;
 	player.pos = cero;
@@ -24,6 +24,7 @@ void initEntityManager(EntityManager* manager, IoData* data){
 	manager->firstRoom = NULL;
 	manager->currentRoom = NULL;
 	manager->roomCount = 0;
+	updateCameraOffset(manager);
 	createTileAtlasSprites(data, manager->tileSprites);
 
 }
@@ -47,9 +48,15 @@ void initTiles(Room* room){
 		for (int j = 0; j < room->height; j++){
 			if (i == 0 || i == room->width-1 ||
 				j == 0 || j == room->height-1)
+			{
 				room->tiles[i][j].type = Wall;
+				room->tiles[i][j].solid = true;
+			}
 			else
+			{
 				room->tiles[i][j].type = Floor;
+				room->tiles[i][j].solid = false;
+			}
 		}
 	}
 }
@@ -86,4 +93,38 @@ void advanceRoom(EntityManager* manager){
 	}
 
 	manager->currentRoom = manager->currentRoom->nextRoom;
+}
+
+void updateCameraOffset(EntityManager* manager){
+	static Vector2 baseOffset = {SCREEN_WIDTH/TILE_SIZE, SCREEN_HEIGHT/TILE_SIZE};
+
+	manager->cameraOffset.x = manager->player.pos.x + baseOffset.x;
+	manager->cameraOffset.y = manager->player.pos.y + baseOffset.y;
+}
+
+
+void movePlayer(EntityManager* manager, MovementType move){	
+	static Vector2 moves[4] = {{0,-1},{1,0},{0,1},{-1,0}};
+	bool canMove;
+	Vector2 pos = addVectors(moves[move], manager->player.pos);
+
+	canMove = !(tileIsSolid(manager->currentRoom, pos));
+
+	if (canMove)
+	{
+		manager->player.pos = pos;
+	}
+}
+
+static bool tileIsSolid(Room* room, Vector2 pos){
+	if (pos.x < room->width && 0 <= pos.x &&
+		pos.y < room->height && 0 <= pos.y)
+	{
+		return room->tiles[pos.x][pos.y].solid;
+	}
+	else
+	{
+		printf("want to go out of bounds\n");
+		return true;
+	}
 }

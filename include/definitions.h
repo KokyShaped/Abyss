@@ -23,12 +23,13 @@ typedef int16_t i16;
 typedef int32_t i32;
 typedef int64_t i64;
 
-typedef struct{
-	i32 x;
-	i32 y;
-}Vector2;
 
-typedef Vector2 Position;
+typedef enum {
+	UP = 0,
+	RIGHT,
+	DOWN,
+	LEFT,
+}MovementType;
 
 
 #endif

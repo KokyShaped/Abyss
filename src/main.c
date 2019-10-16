@@ -1,5 +1,6 @@
 #include <stddef.h>
 #include "definitions.h"
+#include "vector.h"
 #include <assert.h>
 #include <stdio.h>
 #include "random.h"
@@ -37,6 +38,9 @@ int main(){
 		return 1;
 	}
 
+	SDL_Rect rect;
+	SDL_RenderGetViewport(ren, &rect);
+	printf("%d, %d, %d, %d\n",rect.x, rect.y, rect.w, rect.h);
 
 	//resources and stufff
 	IoData* data = initIoData(ren);
@@ -67,19 +71,40 @@ int main(){
 						quit = true;
 						break;
 
-					case SDLK_w:
+					case SDLK_1:
 						aux = createRoom();
 						initRoom(aux);
 						addRoom(entityManager, aux);
 						break;
 
-					case SDLK_e:
+					case SDLK_2:
 						advanceRoom(entityManager);
 						break;
 
-					case SDLK_r:
+					case SDLK_3:
 						printf("Number of rooms: %d\n", entityManager->roomCount);
 						break;
+
+					case SDLK_w:
+						movePlayer(entityManager, UP);
+						printf("Player pos: %d, %d\n",entityManager->player.pos.x, entityManager->player.pos.y);
+						break;
+
+					case SDLK_d:
+						movePlayer(entityManager, RIGHT);
+						printf("Player pos: %d, %d\n",entityManager->player.pos.x, entityManager->player.pos.y);
+						break;
+
+					case SDLK_s:
+						movePlayer(entityManager, DOWN);
+						printf("Player pos: %d, %d\n",entityManager->player.pos.x, entityManager->player.pos.y);
+						break;
+
+					case SDLK_a:
+						movePlayer(entityManager, LEFT);
+						printf("Player pos: %d, %d\n",entityManager->player.pos.x, entityManager->player.pos.y);
+						break;
+
 
 					default:
 						printf("not handled key\n");
@@ -99,6 +124,7 @@ int main(){
 		SDL_RenderClear(ren);
 
 		drawCurrentRoom(entityManager, ren);
+		drawPlayer(entityManager, ren);
 		
 		SDL_RenderPresent(ren);
 		SDL_Delay(16);

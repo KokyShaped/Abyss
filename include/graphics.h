@@ -21,4 +21,6 @@ void drawCurrentRoom(EntityManager* manager, SDL_Renderer* ren);
 
 void createTileAtlasSprites(IoData* data, Sprite** sprites);
 
+void drawPlayer(EntityManager* manager, SDL_Renderer* ren);
+
 #endif

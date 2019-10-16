@@ -24,7 +24,6 @@ Sprite* createSpriteFromAtlas(Vector2 pos, SDL_Texture* atlas){
 }
 
 void renderSpriteAt(Vector2 pos, SDL_Renderer* ren, Sprite* spr){
-
 	SDL_Rect destRect = getPixelRectFromPosition(pos);
 
 	SDL_RenderCopy(ren, spr->sourceTex, &(spr->clip), &destRect);
@@ -46,6 +45,10 @@ void drawCurrentRoom(EntityManager* manager, SDL_Renderer* ren){
 	}
 }
 
+
+void drawPlayer(EntityManager* manager, SDL_Renderer* ren){
+	renderSpriteAt(manager->player.pos, ren, manager->player.sprite);
+}
 
 
 void createTileAtlasSprites(IoData* data, Sprite** sprites){
