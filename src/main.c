@@ -84,24 +84,39 @@ int main(){
 
 					case SDLK_w:
 						movePlayer(entityManager, UP);
-						printf("Player pos: %d, %d\n",entityManager->player.pos.x, entityManager->player.pos.y);
+						
 						break;
 
 					case SDLK_d:
 						movePlayer(entityManager, RIGHT);
-						printf("Player pos: %d, %d\n",entityManager->player.pos.x, entityManager->player.pos.y);
+						
 						break;
 
 					case SDLK_s:
 						movePlayer(entityManager, DOWN);
-						printf("Player pos: %d, %d\n",entityManager->player.pos.x, entityManager->player.pos.y);
+						
 						break;
 
 					case SDLK_a:
 						movePlayer(entityManager, LEFT);
-						printf("Player pos: %d, %d\n",entityManager->player.pos.x, entityManager->player.pos.y);
+						
 						break;
 
+					case SDLK_z:
+						if (entityManager->zoomFactor == 1)
+						{
+							entityManager->zoomFactor = 2;
+						}
+						else if (entityManager->zoomFactor == 2)
+						{
+							entityManager->zoomFactor = 1;
+						}
+						else
+						{
+							printf("ERROR ZOOM FACTOR WRONG\n");
+							assert(entityManager->zoomFactor);
+						}
+						break;
 
 					default:
 						printf("not handled key\n");

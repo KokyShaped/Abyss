@@ -24,6 +24,7 @@ void initEntityManager(EntityManager* manager, IoData* data){
 	manager->firstRoom = NULL;
 	manager->currentRoom = NULL;
 	manager->roomCount = 0;
+	manager->zoomFactor = 1;
 	updateCameraOffset(manager);
 	createTileAtlasSprites(data, manager->tileSprites);
 
@@ -108,7 +109,7 @@ void advanceRoom(EntityManager* manager){
 }
 
 void updateCameraOffset(EntityManager* manager){
-	static Vector2 baseOffset = {SCREEN_WIDTH/(TILE_SIZE*2), SCREEN_HEIGHT/(TILE_SIZE*2)};
+	Vector2 baseOffset = {SCREEN_WIDTH/(TILE_SIZE*2*manager->zoomFactor), SCREEN_HEIGHT/(TILE_SIZE*2*manager->zoomFactor)};
 	
 	manager->cameraOffset.x = baseOffset.x - manager->player.pos.x;
 	manager->cameraOffset.y = baseOffset.y - manager->player.pos.y;

@@ -1,14 +1,18 @@
 #include "graphics.h"
 
 
-static u32 zoomFactor = 1;
 
 
-SDL_Rect getPixelRectFromPosition(Vector2 pos){
+
+SDL_Rect getPixelRectFromPosition(EntityManager* manager, Vector2 pos){
 	SDL_Rect rect;
-	rect.x = pos.x*TILE_SIZE*zoomFactor;
-	rect.y = pos.y*TILE_SIZE*zoomFactor;
-	rect.h = rect.w = TILE_SIZE*zoomFactor;
+	u8 zoom = manager->zoomFactor;
+
+	assert(zoom);
+
+	rect.x = pos.x*TILE_SIZE*zoom;
+	rect.y = pos.y*TILE_SIZE*zoom;
+	rect.h = rect.w = TILE_SIZE*zoom;
 	return rect;
 }
 
@@ -26,7 +30,7 @@ Sprite* createSpriteFromAtlas(Vector2 pos, SDL_Texture* atlas){
 void renderSpriteAt(EntityManager* manager, Vector2 pos, SDL_Renderer* ren, Sprite* spr){
 	Vector2 position = addVectors(pos, manager->cameraOffset);
 
-	SDL_Rect destRect = getPixelRectFromPosition(position);
+	SDL_Rect destRect = getPixelRectFromPosition(manager, position);
 
 	SDL_RenderCopy(ren, spr->sourceTex, &(spr->clip), &destRect);
 }
