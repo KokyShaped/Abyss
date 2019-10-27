@@ -15,7 +15,7 @@ SDL_Rect getPixelRectFromPosition(Vector2 pos);
 
 Sprite* createSpriteFromAtlas(Vector2 pos, SDL_Texture* atlas);
 
-void renderSpriteAt(Vector2 pos, SDL_Renderer* ren, Sprite* spr);
+void renderSpriteAt(EntityManager* manager, Vector2 pos, SDL_Renderer* ren, Sprite* spr);
 
 void drawCurrentRoom(EntityManager* manager, SDL_Renderer* ren);
 

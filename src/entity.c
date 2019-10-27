@@ -52,13 +52,20 @@ void initTiles(Room* room){
 				room->tiles[i][j].type = Wall;
 				room->tiles[i][j].solid = true;
 			}
-			else
+
+			else 
 			{
 				room->tiles[i][j].type = Floor;
 				room->tiles[i][j].solid = false;
 			}
+
 		}
 	}
+	room->tiles[1][1].type = Entry;
+	room->tiles[1][1].solid = false;
+
+	room->tiles[room->width-2][room->height-2].type = Exit;
+	room->tiles[room->width-2][room->height-2].solid = false;
 }
 
 void addRoom(EntityManager* manager, Room* room){
@@ -91,15 +98,20 @@ void advanceRoom(EntityManager* manager){
 	if (manager->currentRoom->nextRoom == NULL){
 		manager->currentRoom = manager->firstRoom;
 	}
+	else
+	{
+		manager->currentRoom = manager->currentRoom->nextRoom;
+	}
 
-	manager->currentRoom = manager->currentRoom->nextRoom;
+	manager->player.pos.x = 1;
+	manager->player.pos.y = 1;
 }
 
 void updateCameraOffset(EntityManager* manager){
-	static Vector2 baseOffset = {SCREEN_WIDTH/TILE_SIZE, SCREEN_HEIGHT/TILE_SIZE};
-
-	manager->cameraOffset.x = manager->player.pos.x + baseOffset.x;
-	manager->cameraOffset.y = manager->player.pos.y + baseOffset.y;
+	static Vector2 baseOffset = {SCREEN_WIDTH/(TILE_SIZE*2), SCREEN_HEIGHT/(TILE_SIZE*2)};
+	
+	manager->cameraOffset.x = baseOffset.x - manager->player.pos.x;
+	manager->cameraOffset.y = baseOffset.y - manager->player.pos.y;
 }
 
 
@@ -113,6 +125,10 @@ void movePlayer(EntityManager* manager, MovementType move){
 	if (canMove)
 	{
 		manager->player.pos = pos;
+	}
+	if (manager->currentRoom->tiles[pos.x][pos.y].type == Exit)
+	{	
+		advanceRoom(manager);
 	}
 }
 
@@ -128,3 +144,4 @@ static bool tileIsSolid(Room* room, Vector2 pos){
 		return true;
 	}
 }
+

@@ -23,8 +23,10 @@ Sprite* createSpriteFromAtlas(Vector2 pos, SDL_Texture* atlas){
 	return spr;
 }
 
-void renderSpriteAt(Vector2 pos, SDL_Renderer* ren, Sprite* spr){
-	SDL_Rect destRect = getPixelRectFromPosition(pos);
+void renderSpriteAt(EntityManager* manager, Vector2 pos, SDL_Renderer* ren, Sprite* spr){
+	Vector2 position = addVectors(pos, manager->cameraOffset);
+
+	SDL_Rect destRect = getPixelRectFromPosition(position);
 
 	SDL_RenderCopy(ren, spr->sourceTex, &(spr->clip), &destRect);
 }
@@ -40,14 +42,14 @@ void drawCurrentRoom(EntityManager* manager, SDL_Renderer* ren){
 			assert(type < tileCount);
 			pos.x = i;
 			pos.y = j;
-			renderSpriteAt(pos, ren, manager->tileSprites[type]);
+			renderSpriteAt(manager, pos, ren, manager->tileSprites[type]);
 		}
 	}
 }
 
 
 void drawPlayer(EntityManager* manager, SDL_Renderer* ren){
-	renderSpriteAt(manager->player.pos, ren, manager->player.sprite);
+	renderSpriteAt(manager, manager->player.pos, ren, manager->player.sprite);
 }
 
 
@@ -57,12 +59,20 @@ void createTileAtlasSprites(IoData* data, Sprite** sprites){
 	pos.y = 0;
 	sprites[Empty] = createSpriteFromAtlas(pos, data->tileAtlas);
 
-	pos.x = 1;
+	pos.x = 8;
 	pos.y = 19;
 	sprites[Floor] = createSpriteFromAtlas(pos, data->tileAtlas);
 
 	pos.x = 5;
 	pos.y = 9;
 	sprites[Wall] = createSpriteFromAtlas(pos, data->tileAtlas);
+
+	pos.x = 19;
+	pos.y = 18;
+	sprites[Entry] = createSpriteFromAtlas(pos, data->tileAtlas);
+
+	pos.x = 19;
+	pos.y = 21;
+	sprites[Exit] = createSpriteFromAtlas(pos, data->tileAtlas); 
 }
 

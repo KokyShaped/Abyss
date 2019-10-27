@@ -55,6 +55,7 @@ typedef struct{
 	Room* firstRoom;
 	Room* currentRoom;
 	u32 roomCount;
+
 	Vector2 cameraOffset;
 
 }EntityManager;

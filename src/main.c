@@ -38,10 +38,7 @@ int main(){
 		return 1;
 	}
 
-	SDL_Rect rect;
-	SDL_RenderGetViewport(ren, &rect);
-	printf("%d, %d, %d, %d\n",rect.x, rect.y, rect.w, rect.h);
-
+	
 	//resources and stufff
 	IoData* data = initIoData(ren);
 
@@ -119,13 +116,14 @@ int main(){
 		}
 
 
-
+		updateCameraOffset(entityManager);
+		
 		//RENDER
 		SDL_RenderClear(ren);
 
 		drawCurrentRoom(entityManager, ren);
 		drawPlayer(entityManager, ren);
-		
+
 		SDL_RenderPresent(ren);
 		SDL_Delay(16);
 	}
