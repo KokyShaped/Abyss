@@ -11,7 +11,7 @@
 //a sprite is a clip rect of the image at the position in pixels of the atlas
 //and a pointer to the atlas
 
-SDL_Rect getPixelRectFromPosition(Vector2 pos);
+SDL_Rect getPixelRectFromPosition(EntityManager* manager, Vector2 pos);
 
 Sprite* createSpriteFromAtlas(Vector2 pos, SDL_Texture* atlas);
 

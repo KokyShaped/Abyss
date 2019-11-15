@@ -7,7 +7,7 @@
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 720
 
-#define TILE_SIZE 32
+#define TILE_SIZE 16
 #define ATLAS_RES 16
 
 #define min(x, y) (x < y? x:y)
@@ -23,6 +23,7 @@ typedef int16_t i16;
 typedef int32_t i32;
 typedef int64_t i64;
 
+typedef SDL_Rect Rect;
 
 typedef enum {
 	UP = 0,

@@ -8,8 +8,10 @@
 #include "random.h"
 #include "vector.h"
 
-#define MIN_SIDE 4
-#define MAX_SIDE 16
+#define MIN_SIDE 5
+#define MAX_SIDE 12
+
+#define MARGIN 3
 
 typedef enum {
 	Empty=0,
@@ -28,13 +30,17 @@ typedef struct{
 	u8 type;
 }Tile;
 
+
+
+
 typedef struct Room{
 	Tile tiles[MAX_SIDE][MAX_SIDE];
 
-	u8 width;
-	u8 height;
+	u32 width;
+	u32 height;
 
 	struct Room* nextRoom;
+
 }Room;
 
 
@@ -57,8 +63,11 @@ typedef struct{
 	u32 roomCount;
 
 	Vector2 cameraOffset;
+	u8 zoomFactor;
 
 }EntityManager;
+
+
 
 #include "graphics.h"
 

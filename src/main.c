@@ -9,7 +9,7 @@
 #include "error.h"
 #include "graphics.h"
 #include "entity.h"
-
+#include "input.h"
 
 
 
@@ -42,111 +42,32 @@ int main(){
 	//resources and stufff
 	IoData* data = initIoData(ren);
 
-	EntityManager* entityManager = createEntityManager();
-	initEntityManager(entityManager, data);
+	EntityManager* manager = createEntityManager();
+	initEntityManager(manager, data);
 
 	Room* aux = createRoom();
 	initRoom(aux);
-	addRoom(entityManager, aux);
+	addRoom(manager, aux);
 
 	//game loop
 
 	bool quit = false;
-	SDL_Event e;
 	while (!quit){
 		
 		//INPUT
-		while (SDL_PollEvent(&e)){
-			if (e.type == SDL_QUIT){
-				quit = true;
-			}
+		handleInput(manager, &quit);
 
-			if (e.type == SDL_KEYDOWN){
-				switch (e.key.keysym.sym)
-				{
-					case SDLK_ESCAPE:
-						quit = true;
-						break;
-
-					case SDLK_1:
-						aux = createRoom();
-						initRoom(aux);
-						addRoom(entityManager, aux);
-						break;
-
-					case SDLK_2:
-						advanceRoom(entityManager);
-						break;
-
-					case SDLK_3:
-						printf("Number of rooms: %d\n", entityManager->roomCount);
-						break;
-
-					case SDLK_w:
-						movePlayer(entityManager, UP);
-						
-						break;
-
-					case SDLK_d:
-						movePlayer(entityManager, RIGHT);
-						
-						break;
-
-					case SDLK_s:
-						movePlayer(entityManager, DOWN);
-						
-						break;
-
-					case SDLK_a:
-						movePlayer(entityManager, LEFT);
-						
-						break;
-
-					case SDLK_z:
-						if (entityManager->zoomFactor == 1)
-						{
-							entityManager->zoomFactor = 2;
-						}
-						else if (entityManager->zoomFactor == 2)
-						{
-							entityManager->zoomFactor = 1;
-						}
-						else
-						{
-							printf("ERROR ZOOM FACTOR WRONG\n");
-							assert(entityManager->zoomFactor);
-						}
-						break;
-
-					default:
-						printf("not handled key\n");
-						break;
-				}
-			}
-
-			if (e.type == SDL_MOUSEBUTTONDOWN){
-				printf("You just pressed a mouse button\n");
-			}
-
-		}
-
-
-		updateCameraOffset(entityManager);
+		updateCameraOffset(manager);
 		
 		//RENDER
 		SDL_RenderClear(ren);
 
-		drawCurrentRoom(entityManager, ren);
-		drawPlayer(entityManager, ren);
+		drawCurrentRoom(manager, ren);
+		drawPlayer(manager, ren);
 
 		SDL_RenderPresent(ren);
 		SDL_Delay(16);
 	}
-
-
-
-
-
 
 
 

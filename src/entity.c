@@ -40,6 +40,7 @@ void initRoom(Room* room){
 	room->width = randInt(MIN_SIDE, MAX_SIDE);
 	room->height = randInt(MIN_SIDE, MAX_SIDE);
 	room->nextRoom = NULL;
+	
 	initTiles(room);
 }
 
