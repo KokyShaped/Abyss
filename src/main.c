@@ -10,7 +10,7 @@
 #include "graphics.h"
 #include "entity.h"
 #include "input.h"
-
+#include <SDL2/SDL_ttf.h>
 
 
 int main(){
@@ -20,6 +20,10 @@ int main(){
 
 	if (SDL_Init(SDL_INIT_VIDEO) != 0){
 		logSDLError("INIT");	
+	}
+
+	if (TTF_Init() != 0){
+		logSDLError("TTF");
 	}
 
 
@@ -38,7 +42,23 @@ int main(){
 		return 1;
 	}
 
+	//------------TEMPORARY---------
+
+	TTF_Font* font;
+	font = TTF_OpenFont("sample.ttf", 16);
+	if (!font){
+		logSDLError("FONT");
+	}
+	SDL_Color color = {255, 255 ,255 ,255};
+	SDL_Texture* fontTex = NULL;
+	SDL_Surface* fontSurf = TTF_RenderText_Solid(font, "this is a test", color);
+	fontTex = SDL_CreateTextureFromSurface(ren, fontSurf);
 	
+
+
+
+
+
 	//resources and stufff
 	IoData* data = initIoData(ren);
 
@@ -64,7 +84,7 @@ int main(){
 
 		drawCurrentRoom(manager, ren);
 		drawPlayer(manager, ren);
-
+		SDL_RenderCopy(ren, fontTex, NULL, NULL);
 		SDL_RenderPresent(ren);
 		SDL_Delay(16);
 	}
