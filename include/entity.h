@@ -52,8 +52,6 @@ typedef struct{
 	Sprite* sprite;
 }Player;
 
-
-
 typedef struct{
 	Player player;
 
@@ -68,6 +66,8 @@ typedef struct{
 
 	TTF_Font* font;
 	SDL_Color fontColor;
+
+
 
 }EntityManager;
 
