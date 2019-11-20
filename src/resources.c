@@ -8,18 +8,28 @@
 #include <SDL2/SDL_image.h>
 #include "graphics.h"
 #include "entity.h"
+#include "error.h"
+
 
 IoData* initIoData(SDL_Renderer* ren){
 	IoData* data = malloc(sizeof(IoData));
 
 	data->basePath = getBasePath();
-	data->baseResourcePath = getResourcePath(data->basePath);
+	data->baseResourcePath = getResourceFolderPath(data->basePath);
 
-	data->tileAtlasPath = getAtlasPath(data->baseResourcePath, "Floor.png");
-	data->playerAtlasPath = getAtlasPath(data->baseResourcePath, "Player.png");
+	data->tileAtlasPath = getResourceFilePath(data->baseResourcePath, "Floor.png");
+	data->playerAtlasPath = getResourceFilePath(data->baseResourcePath, "Player.png");
 
 	data->tileAtlas = loadTexture(data->tileAtlasPath, ren);
 	data->playerAtlas = loadTexture(data->playerAtlasPath, ren);
+
+
+	data->fontPath = getResourceFilePath(data->baseResourcePath, "sample.ttf");
+	data->font = TTF_OpenFont(data->fontPath, 16);
+
+	if (!(data->font)){
+		logSDLError("FONT");
+	}
 
 	return data;
 }
@@ -33,6 +43,9 @@ void freeIoData(IoData* data){
 
 	SDL_DestroyTexture(data->playerAtlas);
 	SDL_DestroyTexture(data->tileAtlas);
+
+	SDL_free(data->fontPath);
+	TTF_CloseFont(data->font);
 
 	SDL_free(data);
 }
@@ -51,7 +64,7 @@ char* getBasePath(void){
 	return value;
 }
 
-char* getResourcePath(const char* basePath){
+char* getResourceFolderPath(const char* basePath){
 
 	int lenght = strlen(basePath);
 
@@ -64,7 +77,7 @@ char* getResourcePath(const char* basePath){
 	
 }
 
-char* getAtlasPath(const char* baseResourcePath, const char* resource){
+char* getResourceFilePath(const char* baseResourcePath, const char* resource){
 	int lenght = strlen(baseResourcePath) + strlen(resource);
 	
 	char* atlasPath = malloc(lenght);

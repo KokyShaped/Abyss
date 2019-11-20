@@ -10,6 +10,8 @@
 #define TILE_SIZE 16
 #define ATLAS_RES 16
 
+#define TEXT_SIZE 16
+
 #define min(x, y) (x < y? x:y)
 #define max(x, y) (x < y? y:x)
 

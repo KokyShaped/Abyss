@@ -28,6 +28,12 @@ void initEntityManager(EntityManager* manager, IoData* data){
 	updateCameraOffset(manager);
 	createTileAtlasSprites(data, manager->tileSprites);
 
+	manager->font = data->font;
+	manager->fontColor.r = 255;
+	manager->fontColor.g = 255;
+	manager->fontColor.b = 255;
+	manager->fontColor.g = 255;
+
 }
 
 

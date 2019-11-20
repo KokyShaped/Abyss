@@ -42,21 +42,6 @@ int main(){
 		return 1;
 	}
 
-	//------------TEMPORARY---------
-
-	TTF_Font* font;
-	font = TTF_OpenFont("sample.ttf", 16);
-	if (!font){
-		logSDLError("FONT");
-	}
-	SDL_Color color = {255, 255 ,255 ,255};
-	SDL_Texture* fontTex = NULL;
-	SDL_Surface* fontSurf = TTF_RenderText_Solid(font, "this is a test", color);
-	fontTex = SDL_CreateTextureFromSurface(ren, fontSurf);
-	
-
-
-
 
 
 	//resources and stufff
@@ -64,6 +49,10 @@ int main(){
 
 	EntityManager* manager = createEntityManager();
 	initEntityManager(manager, data);
+
+	char* text = "This is a test";
+	SDL_Texture* fancyString = stringToTexture(manager, ren, text);
+	Vector2 pixelPos = {0, 0};
 
 	Room* aux = createRoom();
 	initRoom(aux);
@@ -84,7 +73,8 @@ int main(){
 
 		drawCurrentRoom(manager, ren);
 		drawPlayer(manager, ren);
-		SDL_RenderCopy(ren, fontTex, NULL, NULL);
+		renderTextureAt(fancyString, ren, pixelPos);
+
 		SDL_RenderPresent(ren);
 		SDL_Delay(16);
 	}

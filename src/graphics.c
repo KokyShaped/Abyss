@@ -80,3 +80,25 @@ void createTileAtlasSprites(IoData* data, Sprite** sprites){
 	sprites[Exit] = createSpriteFromAtlas(pos, data->tileAtlas); 
 }
 
+void renderTextureAt(SDL_Texture* tex, SDL_Renderer* ren, Vector2 pos){
+	SDL_Rect destRect;
+
+	i32 w, h;
+	SDL_QueryTexture(tex, NULL, NULL, &w, &h);
+
+	destRect.x = pos.x;
+	destRect.y = pos.y;
+	destRect.w = w;
+	destRect.h = h;
+
+
+	SDL_RenderCopy(ren, tex, NULL, &destRect);
+}
+
+SDL_Texture* stringToTexture(EntityManager* manager, SDL_Renderer* ren, const char* str){
+	SDL_Surface* surf = TTF_RenderText_Solid(manager->font, str, manager->fontColor);
+
+	SDL_Texture* tex = SDL_CreateTextureFromSurface(ren, surf);
+	SDL_FreeSurface(surf);
+	return tex;
+}

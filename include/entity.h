@@ -7,6 +7,7 @@
 #include "resources.h"
 #include "random.h"
 #include "vector.h"
+#include <SDL2/SDL_ttf.h>
 
 #define MIN_SIDE 5
 #define MAX_SIDE 12
@@ -64,6 +65,9 @@ typedef struct{
 
 	Vector2 cameraOffset;
 	u8 zoomFactor;
+
+	TTF_Font* font;
+	SDL_Color fontColor;
 
 }EntityManager;
 
