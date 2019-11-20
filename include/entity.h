@@ -3,11 +3,11 @@
 
 #include "definitions.h"
 #include <stdbool.h>
-#include "stretchy_buffer.h"
 #include "resources.h"
 #include "random.h"
 #include "vector.h"
 #include <SDL2/SDL_ttf.h>
+
 
 #define MIN_SIDE 5
 #define MAX_SIDE 12
@@ -52,7 +52,7 @@ typedef struct{
 	Sprite* sprite;
 }Player;
 
-typedef struct{
+typedef struct EntityManager{
 	Player player;
 
 	Sprite* tileSprites[tileCount];
@@ -67,12 +67,12 @@ typedef struct{
 	TTF_Font* font;
 	SDL_Color fontColor;
 
-
+	struct LabelColumn* column;
 
 }EntityManager;
 
 
-
+#include "interface.h"
 #include "graphics.h"
 
 Player createPlayer(IoData* data);

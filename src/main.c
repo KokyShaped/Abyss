@@ -49,10 +49,8 @@ int main(){
 
 	EntityManager* manager = createEntityManager();
 	initEntityManager(manager, data);
+	initUI(manager, ren);
 
-	char* text = "This is a test";
-	SDL_Texture* fancyString = stringToTexture(manager, ren, text);
-	Vector2 pixelPos = {0, 0};
 
 	Room* aux = createRoom();
 	initRoom(aux);
@@ -73,7 +71,7 @@ int main(){
 
 		drawCurrentRoom(manager, ren);
 		drawPlayer(manager, ren);
-		renderTextureAt(fancyString, ren, pixelPos);
+		renderLabelColumn(ren, manager->column);
 
 		SDL_RenderPresent(ren);
 		SDL_Delay(16);

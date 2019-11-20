@@ -1,5 +1,5 @@
 
-FILES = main.c random.c resources.c error.c graphics.c entity.c vector.c input.c interface.h
+FILES = main.c random.c resources.c error.c graphics.c entity.c vector.c input.c interface.c
 OBJS = main.o random.o resources.o error.o graphics.o entity.o vector.o input.o interface.o
 BINARY = Abyss
 CFLAGS = -lm -lSDL2 -lSDL2_image -lSDL2_ttf -I ../include/

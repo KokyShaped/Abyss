@@ -102,3 +102,4 @@ SDL_Texture* stringToTexture(EntityManager* manager, SDL_Renderer* ren, const ch
 	SDL_FreeSurface(surf);
 	return tex;
 }
+

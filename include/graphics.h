@@ -7,6 +7,8 @@
 #include "entity.h"
 #include <assert.h>
 #include <SDL2/SDL_ttf.h>
+#include "interface.h"
+
 
 
 //a sprite is a clip rect of the image at the position in pixels of the atlas
@@ -27,5 +29,6 @@ void drawPlayer(EntityManager* manager, SDL_Renderer* ren);
 void renderTextureAt(SDL_Texture* tex, SDL_Renderer* ren, Vector2 pos);
 
 SDL_Texture* stringToTexture(EntityManager* manager, SDL_Renderer* ren, const char* str);
+
 
 #endif

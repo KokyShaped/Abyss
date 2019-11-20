@@ -34,6 +34,7 @@ void initEntityManager(EntityManager* manager, IoData* data){
 	manager->fontColor.b = 255;
 	manager->fontColor.g = 255;
 
+	manager->column = NULL;
 }
 
 
